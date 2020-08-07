@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { CodeViewComponent } from './code-view/code-view.component';
 import { AutosizeModule } from 'ngx-autosize';
 import { FormsModule } from '@angular/forms';
-
 @NgModule({
   declarations: [
     AppComponent,
