@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class CodeFormComponent implements OnInit {
 
   mutable: boolean = false;
-  submitDisabled: boolean = true;
+  submitDisabled: boolean = false;
   code: string = 'printf()';
   constructor() { }
 

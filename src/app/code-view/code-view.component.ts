@@ -8,6 +8,7 @@ export class CodeViewComponent implements OnInit {
 
   code: string = "printf()";
   lineCount: number[] = [1];
+  readonly MAXCHARS: number = 500;
 
   @Output() codeChangeEvent = new EventEmitter<string>();
   @Output() isEditingEvent = new EventEmitter<boolean>();
@@ -18,6 +19,9 @@ export class CodeViewComponent implements OnInit {
   }
 
   onCodeChange(): void {
+    if(this.code.length > this.MAXCHARS) {
+      this.code = this.code.slice(0, this.MAXCHARS);
+    }
     this.emitCodeChangeEvent();
     this.updateLines();
   }

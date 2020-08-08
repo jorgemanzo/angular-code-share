@@ -3,6 +3,15 @@
         (codeChangeEvent)="setCode($event)"
         (isEditingEvent)="disableOnEdit($event)"
     ></app-code-view>
-    <app-code-view-options (mutableCheckboxEvent)="setMutable($event)"></app-code-view-options>
-    <button id="submit" name="submit" [disabled]="submitDisabled" (click)="handleSubmit()">Submit</button>
+    <app-code-view-options
+        (mutableCheckboxEvent)="setMutable($event)"
+    ></app-code-view-options>
+    <button 
+        id="submit" 
+        name="submit" 
+        [disabled]="submitDisabled" 
+        (click)="handleSubmit()"
+    >
+        {{ submitDisabled ? "Submit (Disabled during edits)" : "Submit" }}
+    </button>
 </div>
