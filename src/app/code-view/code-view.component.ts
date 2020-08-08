@@ -31,7 +31,9 @@ export class CodeViewComponent implements OnInit {
   }
 
   onBlur(): void {
-    this.isEditingEvent.emit(false);
+    if(this.code.length > 0) {
+      this.isEditingEvent.emit(false);
+    }
   }
 
   emitCodeChangeEvent(): void {
