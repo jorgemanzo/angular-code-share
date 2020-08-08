@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-code-view-options',
   templateUrl: './code-view-options.component.html',
@@ -7,7 +6,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CodeViewOptionsComponent implements OnInit {
 
+  @Output() mutableCheckboxEvent = new EventEmitter<boolean>();
+
+  mutable: boolean = false;
+
   constructor() { }
+
+  handleMutableClick() {
+    this.mutableCheckboxEvent.emit(this.mutable);
+  }
 
   ngOnInit(): void {
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-code-view',
   templateUrl: './code-view.component.html',
@@ -8,14 +8,21 @@ export class CodeViewComponent implements OnInit {
 
   code: string = "printf()";
   lineCount: number[] = [1];
+
+  @Output() codeChangeEvent = new EventEmitter<string>();
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  onCodeChange(event): void {
-    this.code = event;
+  onCodeChange(): void {
+    this.emitCodeChange();
     this.updateLines();
+  }
+
+  emitCodeChange(): void {
+    this.codeChangeEvent.emit(this.code);
   }
 
   updateLines(): void {

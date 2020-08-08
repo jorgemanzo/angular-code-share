@@ -1,4 +1,5 @@
 <div>
-    <app-code-view></app-code-view>
-    <app-code-view-options></app-code-view-options>
+    <app-code-view (codeChangeEvent)="setCode($event)"></app-code-view>
+    <app-code-view-options (mutableCheckboxEvent)="setMutable($event)"></app-code-view-options>
+    <button id="submit" name="submit" (click)="handleSubmit()">Submit</button>
 </div>

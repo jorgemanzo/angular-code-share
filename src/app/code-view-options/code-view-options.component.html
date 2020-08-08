@@ -1,1 +1,12 @@
-<p>code-view-options works!</p>
+<div>
+    <label for="mutable">
+        <input 
+            id="mutable" 
+            type="checkbox" 
+            name="mutable"
+            [(ngModel)]="mutable"
+            (change)="handleMutableClick()"
+        />
+        Allow changes
+    </label>
+</div>
