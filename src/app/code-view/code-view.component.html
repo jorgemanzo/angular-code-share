@@ -7,8 +7,8 @@
         autosize 
         class="noStyleTextArea"
         spellcheck="false"
-        [(ngModel)]="code"
-        (ngModelChange)="onCodeChange()"
+        [ngModel]="code"
+        (ngModelChange)="onCodeChange($event)"
       >{{code}}</textarea>
       <span class="cl"></span>
     </div>

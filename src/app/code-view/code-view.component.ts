@@ -13,9 +13,13 @@ export class CodeViewComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onCodeChange(): void {
+  onCodeChange(event): void {
+    this.code = event;
+    this.updateLines();
+  }
+
+  updateLines(): void {
     const num = this.code.split(/\n/).length;
-    console.log(num)
     if(num === 0) {
       this.lineCount = [1];
     } else {
