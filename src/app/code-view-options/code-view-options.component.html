@@ -5,7 +5,7 @@
             type="checkbox" 
             name="mutable"
             [(ngModel)]="mutable"
-            (change)="handleMutableClick()"
+            (change)="emitCheckboxValueEvent()"
         />
         Allow changes
     </label>

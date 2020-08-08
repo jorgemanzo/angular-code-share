@@ -12,7 +12,7 @@ export class CodeViewOptionsComponent implements OnInit {
 
   constructor() { }
 
-  handleMutableClick() {
+  emitCheckboxValueEvent() {
     this.mutableCheckboxEvent.emit(this.mutable);
   }
 

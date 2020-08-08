@@ -8,6 +8,8 @@
         class="noStyleTextArea"
         spellcheck="false"
         [(ngModel)]="code"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
         (change)="onCodeChange()"
       >{{code}}</textarea>
       <span class="cl"></span>

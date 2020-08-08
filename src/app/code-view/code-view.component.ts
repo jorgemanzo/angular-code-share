@@ -10,6 +10,7 @@ export class CodeViewComponent implements OnInit {
   lineCount: number[] = [1];
 
   @Output() codeChangeEvent = new EventEmitter<string>();
+  @Output() isEditingEvent = new EventEmitter<boolean>();
 
   constructor() { }
 
@@ -17,11 +18,19 @@ export class CodeViewComponent implements OnInit {
   }
 
   onCodeChange(): void {
-    this.emitCodeChange();
+    this.emitCodeChangeEvent();
     this.updateLines();
   }
 
-  emitCodeChange(): void {
+  onFocus(): void {
+    this.isEditingEvent.emit(true);
+  }
+
+  onBlur(): void {
+    this.isEditingEvent.emit(false);
+  }
+
+  emitCodeChangeEvent(): void {
     this.codeChangeEvent.emit(this.code);
   }
 

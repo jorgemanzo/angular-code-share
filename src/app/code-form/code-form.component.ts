@@ -8,11 +8,16 @@ import { Component, OnInit } from '@angular/core';
 export class CodeFormComponent implements OnInit {
 
   mutable: boolean = false;
+  submitDisabled: boolean = true;
   code: string = 'printf()';
   constructor() { }
 
-  setMutable(value): void {
+  setMutable(value: boolean): void {
     this.mutable = value;
+  }
+
+  disableOnEdit(isEditing: boolean): void {
+    this.submitDisabled = isEditing;
   }
 
   setCode(value): void {

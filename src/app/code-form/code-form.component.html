@@ -1,5 +1,8 @@
 <div>
-    <app-code-view (codeChangeEvent)="setCode($event)"></app-code-view>
+    <app-code-view 
+        (codeChangeEvent)="setCode($event)"
+        (isEditingEvent)="disableOnEdit($event)"
+    ></app-code-view>
     <app-code-view-options (mutableCheckboxEvent)="setMutable($event)"></app-code-view-options>
-    <button id="submit" name="submit" (click)="handleSubmit()">Submit</button>
+    <button id="submit" name="submit" [disabled]="submitDisabled" (click)="handleSubmit()">Submit</button>
 </div>
