@@ -4,6 +4,6 @@ echo "tzdata tzdata/Areas select US" > /tmp/preseed.txt;
 echo "tzdata tzdata/Zones/US select Pacific" >> /tmp/preseed.txt;
 
 apk update && apk upgrade
-apk add php7 php7-fpm php7-curl php7-mysqli php7-xml unzip openrc
+apk add php7 php7-fpm php7-curl php7-mysqli php7-xml unzip
 
-rc-update add php-fpm7 default
+/usr/sbin/php-fpm7 
