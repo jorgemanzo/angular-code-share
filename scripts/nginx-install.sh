@@ -6,4 +6,6 @@ echo "tzdata tzdata/Zones/US select Pacific" >> /tmp/preseed.txt;
 apk update && apk upgrade
 apk add php7 php7-fpm php7-curl php7-mysqli php7-xml unzip
 
-/usr/sbin/php-fpm7 
+chmod -R 755 /var/www/html/ci-api
+
+/usr/sbin/php-fpm7
