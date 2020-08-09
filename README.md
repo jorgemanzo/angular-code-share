@@ -4,7 +4,7 @@
     <img src="https://angular.io/assets/images/logos/angular/angular.svg" alt="angular" height="150" width="221">
   </a>
   <a href="https://codeigniter.com/">
-    <img src="https://codeigniter.com/assets/images/ci-logo-big.png" alt="codeigniter" height="200" width="155">
+    <img src="https://codeigniter.com/assets/images/ci-logo-big.png" alt="codeigniter" height="140" width="95">
   </a>
 </div>
 
