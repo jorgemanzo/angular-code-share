@@ -12,7 +12,7 @@ services:
       - ./config/certs/nginx-selfsigned.key:/etc/nginx/ssl/localhost.key
       - ./scripts/nginx-install.sh:/docker-entrypoint.d/nginx-install.sh
       - ./angular/dist/angular-code-share/:/var/www/html/angular/
-      - ./codeigniter/application:/var/www/html/application
+      - ./codeigniter/:/var/www/html/ci-api
     ports:
       - "8080:80"
       - "443:443"
