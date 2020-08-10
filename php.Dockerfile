@@ -27,6 +27,7 @@ COPY ./config/certs/nginx-selfsigned.key /etc/nginx/ssl/localhost.key
 COPY ./angular/dist/angular-code-share/ /var/www/html/angular/
 COPY ./codeigniter/ /var/www/html/ci-api
 COPY ./scripts/nginx-install.sh /root/launch.sh
+COPY ./scripts/createremote.sql /root/init.sql
 RUN chmod -R 777 /root/*
 
-# ENTRYPOINT ["/root/launch.sh"]
+ENTRYPOINT ["/root/launch.sh"]
