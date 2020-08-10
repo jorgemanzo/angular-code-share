@@ -1,11 +1,5 @@
-#!/bin/sh
-echo "US/Pacific" > /etc/timezone
-echo "tzdata tzdata/Areas select US" > /tmp/preseed.txt;
-echo "tzdata tzdata/Zones/US select Pacific" >> /tmp/preseed.txt;
+#!/usr/bin/env bash
 
-apk update && apk upgrade
-apk add php7 php7-fpm php7-curl php7-mysqli php7-xml unzip
-
-chmod -R 755 /var/www/html/ci-api
-
-/usr/sbin/php-fpm7
+service nginx start
+service mysql start
+php-fpm
