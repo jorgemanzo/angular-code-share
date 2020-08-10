@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SharesService } from '../shares.service';
 
 @Component({
   selector: 'app-code-form',
@@ -10,7 +11,9 @@ export class CodeFormComponent implements OnInit {
   mutable: boolean = false;
   submitDisabled: boolean = false;
   code: string = 'printf()';
-  constructor() { }
+  constructor(
+    private sharesService: SharesService
+  ) { }
 
   setMutable(value: boolean): void {
     this.mutable = value;
@@ -29,7 +32,14 @@ export class CodeFormComponent implements OnInit {
     console.log('code: ', this.code);
   }
 
+  getShares(): void {
+    this.sharesService.getShares().subscribe(
+      res => console.log(res)
+    );
+  }
+
   ngOnInit(): void {
+    this.getShares();
   }
 
 }

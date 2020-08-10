@@ -11,9 +11,16 @@ class Query extends CI_Controller {
     public function index() {
         $data['code'] = $this->code_model->get_code();
         $data['title'] = 'Code snippets';
-        $this->output
-            ->set_content_type('application/json')
-            ->set_output(json_encode($data));
+        // $this->output
+        //     ->set_content_type('application/json')
+        //     ->set_output(json_encode($data));
+        $this->sendJsonSuccess($data);
+    }
+
+    public function sendJsonSuccess($data = null, $msg = '', $update = '') {   // Send JSON data wrapped in a success status
+        $this->output->set_content_type('application/json')
+                     ->set_status_header(200)
+                     ->set_output(json_encode($data));
     }
 
 }
