@@ -5,7 +5,7 @@ class Code_model extends CI_Model {
         }
 
         public function get_code() {
-            $query = $this->db->get('code');
+            $query = $this->db->get('shares');
             return $query->result_array();
         }
 }
