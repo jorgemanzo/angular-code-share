@@ -11,9 +11,9 @@ class Query extends CI_Controller {
     public function index() {
         $data['code'] = $this->code_model->get_code();
         $data['title'] = 'Code snippets';
-        $this->load->view('templates/header', $data);
-        $this->load->view('code/index', $data);
-        $this->load->view('templates/footer');
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($data));
     }
 
 }
