@@ -1,4 +1,6 @@
 #!/bin/bash
+docker build -t php -f Dockerfile .
+
 docker run --rm -p 8080:80 \
         -p 443:443 \
         -p 3306:3306 \

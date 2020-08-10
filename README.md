@@ -10,11 +10,14 @@
 
 - Angular frontend
 - Codeigniter api backend
-- NGINX webserver that lives in...
-- Docker, using PHP FPM to serve the PHP, and a
-- MariaDB instance in its own docker container
+- NGINX webserver
+- PHP FPM to serve the Codeigniter
+- MariaDB as... a db
+- All live in a docker container.
 
 ### Startup
 1. Run `ng build` from within `angular/`. This will generate a build in the `dist/` folder.
-2. Back in the project root directory, run `docker-compose up -d` to start the database and the NGINX + Codeigniter containers.
-3. Access the web app via `https://localhost/` and Codeigniter via `https://localhost/ci-api/`
+2. Back in the project root directory, run `./scripts/start.sh` to start the database and the NGINX + Codeigniter containers.
+3. Access the web app via `https://localhost/` and Codeigniter via `https://localhost/ci-api/` (Codeigniter can take a while to startup).
+
+The image will be built called `php` and will be started and named as `php`.
