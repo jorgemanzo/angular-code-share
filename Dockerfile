@@ -9,10 +9,12 @@ RUN echo "tzdata tzdata/Areas select US" > /tmp/preseed.txt; \
 
 RUN docker-php-ext-install mysqli
 
-RUN apt-get update -y \
-    && apt-get install -y nginx
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 
-RUN apt install -y mariadb-server
+RUN apt-get update -y \
+    && apt-get install -y nginx mariadb-server nodejs
+
+RUN npm install -g @angular/cli
 
 EXPOSE 80
 EXPOSE 443
