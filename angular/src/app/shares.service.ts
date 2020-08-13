@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SharesService {
-  private apiURL = '/ci-api/query';
+  private apiURL = '/ci-api/api';
   constructor(
     private http: HttpClient
   ) { }

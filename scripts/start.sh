@@ -6,5 +6,5 @@ docker run --rm -p 8080:80 \
         -p 3306:3306 \
         --name php \
         -v $(pwd)/angular/:/var/www/html/angular/ \
-        -v $(pwd)/codeigniter/:/var/www/html/ci-api \
+        -v $(pwd)/vendor/codeigniter/framework:/var/www/html/ci-api \
         -d php
