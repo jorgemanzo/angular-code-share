@@ -1,6 +1,6 @@
 <?php 
 
-class Api extends MY_Controller {
+class Api extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -11,20 +11,19 @@ class Api extends MY_Controller {
     public function index() {
         $data['code'] = $this->code_model->get_code();
         $data['title'] = 'Code snippets';
-        // $this->output
-        //     ->set_content_type('application/json')
-        //     ->set_output(json_encode($data));
-        $this->sendJsonSuccess($data);
+        $this->sendJsonResponse($data);
     }
 
     public function create() {
-        $data = $this->input->request_headers();
-        $this->sendJsonSuccess($data);
+        $data = $this->input->raw_input_stream;
+        $new_id = $this->code_model->create_share($data);
+        $status_code = $new_id == -1 ? 500 : 200;
+        $this->sendJsonResponse($new_id, '', '', $status_code);
     }
 
-    public function sendJsonSuccess($data = null, $msg = '', $update = '') {   // Send JSON data wrapped in a success status
+    public function sendJsonResponse($data = null, $msg = '', $update = '', $code = 200) {   // Send JSON data wrapped in a success status
         $this->output->set_content_type('application/json')
-                     ->set_status_header(200)
+                     ->set_status_header($code)
                      ->set_output(json_encode($data));
     }
 
