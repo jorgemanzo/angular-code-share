@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SharesService } from '../shares.service';
+import { Share } from '../share';
 
 @Component({
   selector: 'app-code-form',
@@ -28,8 +29,10 @@ export class CodeFormComponent implements OnInit {
   }
 
   handleSubmit(): void {
-    console.log('mutable: ', this.mutable);
-    console.log('code: ', this.code);
+    const value: Share = { code : this.code }
+    this.sharesService.createShare(value).subscribe(
+      res => console.log(res)
+    );
   }
 
   getShares(): void {

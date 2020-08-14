@@ -1,6 +1,6 @@
 <?php 
 
-class Api extends CI_Controller {
+class Api extends MY_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -14,6 +14,11 @@ class Api extends CI_Controller {
         // $this->output
         //     ->set_content_type('application/json')
         //     ->set_output(json_encode($data));
+        $this->sendJsonSuccess($data);
+    }
+
+    public function create() {
+        $data = $this->input->request_headers();
         $this->sendJsonSuccess($data);
     }
 

@@ -7,4 +7,5 @@ docker run --rm -p 8080:80 \
         --name php \
         -v $(pwd)/angular/:/var/www/html/angular/ \
         -v $(pwd)/vendor/codeigniter/framework:/var/www/html/ci-api \
+        -v $(pwd)/vendor/ezyang/htmlpurifier/:/var/www/html/htmlpurifier \
         -d php
