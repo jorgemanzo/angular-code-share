@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SharesService } from '../shares.service';
 import { Share } from '../share';
 
@@ -13,7 +14,8 @@ export class CodeFormComponent implements OnInit {
   submitDisabled: boolean = false;
   code: string = 'printf()';
   constructor(
-    private sharesService: SharesService
+    private sharesService: SharesService,
+    private router: Router
   ) { }
 
   setMutable(value: boolean): void {
@@ -31,8 +33,14 @@ export class CodeFormComponent implements OnInit {
   handleSubmit(): void {
     const value: Share = { code : this.code }
     this.sharesService.createShare(value).subscribe(
-      res => console.log(res)
+      res => this.navigateToPresenter(res)
     );
+  }
+
+  navigateToPresenter(res): void {
+    if(res) {
+      this.router.navigate(['ci-api', { share_id: res }])
+    }
   }
 
   getShares(): void {
