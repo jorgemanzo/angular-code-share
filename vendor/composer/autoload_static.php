@@ -6,24 +6,9 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit17eefe47dc108ee4e063fbe7f8a1a9e8
 {
-    public static $files = array (
-        '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
-    );
-
-    public static $prefixesPsr0 = array (
-        'H' => 
-        array (
-            'HTMLPurifier' => 
-            array (
-                0 => __DIR__ . '/..' . '/ezyang/htmlpurifier/library',
-            ),
-        ),
-    );
-
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixesPsr0 = ComposerStaticInit17eefe47dc108ee4e063fbe7f8a1a9e8::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }
