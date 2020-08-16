@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Share } from './share';
 @Injectable({
   providedIn: 'root'
 })
 export class SharesService {
-  private apiURL = '/ci-api/api';
+  private apiURL = '/ci-api/share';
   constructor(
     private http: HttpClient
   ) { }

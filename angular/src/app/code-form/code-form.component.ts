@@ -39,7 +39,7 @@ export class CodeFormComponent implements OnInit {
 
   navigateToPresenter(res): void {
     if(res) {
-      this.router.navigate(['ci-api', { share_id: res }])
+      this.router.navigate(['share', { share_id: res }])
     }
   }
 
