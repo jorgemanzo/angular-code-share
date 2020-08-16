@@ -20,8 +20,6 @@ EXPOSE 80
 EXPOSE 443
 EXPOSE 3306
 
-COPY ./config/nginx-sites/api.conf /etc/nginx/sites-available/api.conf
-COPY ./config/nginx-sites/default.conf /etc/nginx/sites-available/default.conf
 COPY ./config/fastcgi.conf /etc/nginx/snippets/fastcgi-php.conf
 COPY ./config/nginx.conf /etc/nginx/nginx.conf
 COPY ./config/certs/nginx-selfsigned.crt /etc/nginx/ssl/localhost.crt
