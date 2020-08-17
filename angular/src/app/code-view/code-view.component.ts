@@ -6,7 +6,6 @@ import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 })
 export class CodeViewComponent implements OnInit {
 
-  code: string = "printf()";
   lineCount: number[] = [1];
   readonly MAXCHARS: number = 500;
 
@@ -14,6 +13,7 @@ export class CodeViewComponent implements OnInit {
   @Output() isEditingEvent = new EventEmitter<boolean>();
 
   @Input() mutable: boolean = true;
+  @Input() code: string = "printf()";
 
   constructor() { }
 

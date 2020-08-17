@@ -10,6 +10,7 @@ export class CodePresenterComponent implements OnInit {
   constructor() { }
 
   mutable: boolean = false;
+  code: string = "code from api;";
 
   ngOnInit(): void {
   }
