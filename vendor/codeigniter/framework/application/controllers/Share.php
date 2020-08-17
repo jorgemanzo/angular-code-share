@@ -22,6 +22,13 @@ class Share extends CI_Controller {
         $this->sendJsonResponse($new_id, '', '', $status_code);
     }
 
+    public function get_by_id() {
+        $id = $this->input->get('id');
+        $data_array = $this->code_model->get_by_id($id);
+        $status_code = $data_array == null ? 500 : 200;
+        $this->sendJsonResponse($data_array, '', '', $status_code);
+    }
+
     public function sendJsonResponse($data = null, $msg = '', $update = '', $code = 200) {   // Send JSON data wrapped in a success status
         $this->output->set_content_type('application/json')
                      ->set_status_header($code)
