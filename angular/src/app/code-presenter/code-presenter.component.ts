@@ -9,6 +9,8 @@ export class CodePresenterComponent implements OnInit {
 
   constructor() { }
 
+  mutable: boolean = false;
+
   ngOnInit(): void {
   }
 

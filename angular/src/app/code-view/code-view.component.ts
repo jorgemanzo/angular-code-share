@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-code-view',
   templateUrl: './code-view.component.html',
@@ -13,9 +13,14 @@ export class CodeViewComponent implements OnInit {
   @Output() codeChangeEvent = new EventEmitter<string>();
   @Output() isEditingEvent = new EventEmitter<boolean>();
 
+  @Input() mutable: boolean = true;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+  isDisabled(): boolean {
+    return !this.mutable;
   }
 
   onCodeChange(): void {

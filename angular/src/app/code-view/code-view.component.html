@@ -8,6 +8,7 @@
         required
         class="noStyleTextArea"
         spellcheck="false"
+        [disabled]="isDisabled()"
         [(ngModel)]="code"
         (focus)="onFocus()"
         (blur)="onBlur()"
