@@ -31,13 +31,17 @@ export class CodeFormComponent implements OnInit {
   }
 
   handleSubmit(): void {
-    const value: Share = { code : this.code }
+    const value: Share = { 
+      code : this.code,
+      mutable : this.mutable
+    }
     this.sharesService.createShare(value).subscribe(
       res => this.navigateToPresenter(res)
     );
   }
 
   navigateToPresenter(res): void {
+    console.log(res)
     if(res) {
       this.router.navigate(['share', { share_id: res }])
     }
