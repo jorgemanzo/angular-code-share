@@ -6,7 +6,9 @@ import { Share } from './share';
   providedIn: 'root'
 })
 export class SharesService {
-  private apiURL = '/ci-api/share';
+  private readonly apiURL = '/ci-api/share';
+  private readonly apiCreateEndPoint = "/create";
+  private readonly apiGetById = "/get_by_id/?id=";
   constructor(
     private http: HttpClient
   ) { }
@@ -16,6 +18,10 @@ export class SharesService {
   }
 
   createShare(share: Share): Observable<Share> {
-    return this.http.post<Share>(this.apiURL + "/create", share)
+    return this.http.post<Share>(this.apiURL + this.apiCreateEndPoint, share);
+  }
+
+  getShareById(id: number): Observable<Share> {
+    return this.http.get<Share>(this.apiURL + this.apiGetById + id);
   }
 }
