@@ -17,7 +17,7 @@ class Share extends CI_Controller {
     public function create() {
         $data = $this->input->raw_input_stream;
         $decode = json_decode($data, TRUE, JSON_INVALID_UTF8_IGNORE);
-        $new_id = $this->code_model->create_share($decode['code']);
+        $new_id = $this->code_model->create_share($decode['code'], $decode['mutable']);
         $status_code = $new_id == -1 ? 500 : 200;
         $this->sendJsonResponse($new_id, '', '', $status_code);
     }
