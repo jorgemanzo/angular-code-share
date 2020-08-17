@@ -1,4 +1,6 @@
 #!/bin/bash
+docker stop php
+
 docker build -t php -f Dockerfile .
 
 docker run --rm -p 8080:80 \
