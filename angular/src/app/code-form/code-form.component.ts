@@ -43,7 +43,7 @@ export class CodeFormComponent implements OnInit {
   navigateToPresenter(res): void {
     console.log(res)
     if(res) {
-      this.router.navigate(['share', { share_id: res }])
+      this.router.navigate(['share', { id: res }])
     }
   }
 
