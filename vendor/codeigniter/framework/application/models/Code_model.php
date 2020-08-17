@@ -13,8 +13,8 @@ class Code_model extends CI_Model {
         public function create_share($user_code, $mutable) {
             $sql = "INSERT shares (code, mutable) VALUES ( ?, ?)";
             $query_parameters = array(
-                $this->db->escape($user_code),
-                $this->db->escape($mutable)
+                $user_code,
+                $mutable
             );
             $res = $this->db->query($sql, $query_parameters);
             if($res) {
@@ -23,5 +23,14 @@ class Code_model extends CI_Model {
             } else {
                 return -1;
             }
+        }
+
+        public function get_by_id($id) {
+            $sql = "SELECT * FROM shares WHERE share_id = ?";
+            $query_parameters = array(
+                (int)$id
+            );
+            $query = $this->db->query($sql, $query_parameters);
+            return $query->result_array();
         }
 }
