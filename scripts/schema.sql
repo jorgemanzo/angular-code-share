@@ -8,7 +8,8 @@ USE code_share;
 
 CREATE TABLE shares (
     share_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    code TEXT NOT NULL DEFAULT ''
+    code TEXT NOT NULL DEFAULT '',
+    mutable BOOLEAN NOT NULL DEFAULT FALSE
 ) ENGINE=InnoDB CHARSET=utf8mb4 COMMENT='Stores code shares';
 
 INSERT shares (code) VALUES ('printf()');
