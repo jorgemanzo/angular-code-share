@@ -8,6 +8,7 @@ import { Share } from './share';
 export class SharesService {
   private readonly apiURL = '/ci-api/share';
   private readonly apiCreateEndPoint = "/create";
+  private readonly apiUpdateEndPoint = "/update/?id=";
   private readonly apiGetById = "/get_by_id/?id=";
   constructor(
     private http: HttpClient
@@ -21,7 +22,11 @@ export class SharesService {
     return this.http.post<Share>(this.apiURL + this.apiCreateEndPoint, share);
   }
 
-  getShareById(id: number): Observable<Share> {
+  updateShare(share: Share, shareId: Number) {
+    return this.http.patch(this.apiURL + this.apiUpdateEndPoint + shareId, share);
+  }
+
+  getShareById(id: Number): Observable<Share> {
     return this.http.get<Share>(this.apiURL + this.apiGetById + id);
   }
 }

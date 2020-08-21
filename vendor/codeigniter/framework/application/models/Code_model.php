@@ -25,6 +25,16 @@ class Code_model extends CI_Model {
             }
         }
 
+        public function update_by_id($id, $user_code, $mutable) {
+            $sql = "UPDATE shares SET code = ?, mutable = ? WHERE share_id = ?";
+            $query_parameters = array(
+                $user_code,
+                $mutable,
+                $id
+            );
+            return $this->db->query($sql, $query_parameters);
+        }
+
         public function get_by_id($id) {
             $sql = "SELECT * FROM shares WHERE share_id = ?";
             $query_parameters = array(

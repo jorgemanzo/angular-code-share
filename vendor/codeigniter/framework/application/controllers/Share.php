@@ -22,6 +22,15 @@ class Share extends CI_Controller {
         $this->sendJsonResponse($new_id, '', '', $status_code);
     }
 
+    public function update() {
+        $id = $this->input->get('id');
+        $data = $this->input->raw_input_stream;
+        $decode = json_decode($data, TRUE, JSON_INVALID_UTF8_IGNORE);
+        $ok = $this->code_model->update_by_id($id, $decode['code'], $decode['mutable']);
+        $status_code = $ok ? 200 : 500;
+        $this->sendJsonResponse(array($data, $decode, $id), 'OK', '', $status_code);
+    }
+
     public function get_by_id() {
         $id = $this->input->get('id');
         $data_array = $this->code_model->get_by_id($id);

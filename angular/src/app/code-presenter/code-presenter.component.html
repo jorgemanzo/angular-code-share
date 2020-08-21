@@ -1,5 +1,16 @@
-<app-code-view 
-    [mutable]="mutable"
-    [code]="code"
-></app-code-view>
 
+
+<div>
+    <app-code-view 
+        [mutable]="codeShare.mutable"
+        [code]="codeShare.code"
+    ></app-code-view>
+    <button 
+    id="submit" 
+    name="submit" 
+    [disabled]="submitDisabled" 
+    (click)="handleSubmit()"
+    >
+        {{ submitDisabled ? "Editing Disabled" : "Submit Change" }}
+    </button>
+</div>
