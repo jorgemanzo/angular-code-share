@@ -6,14 +6,21 @@ import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 })
 export class CodeViewComponent implements OnInit {
 
-  lineCount: number[] = [1];
-  readonly MAXCHARS: number = 500;
+  private readonly MAXCHARS: number = 500;
+
+  public lineCount: number[] = [1];
+  private _code = 'printf()';
 
   @Output() codeChangeEvent = new EventEmitter<string>();
   @Output() isEditingEvent = new EventEmitter<boolean>();
 
   @Input() mutable: boolean = true;
-  @Input() code: string = "printf()";
+  @Input()
+  get code(): string { return this._code; }
+  set code(value: string) {
+    this._code = value;
+    this.updateLines();
+  }
 
   constructor() { }
 
