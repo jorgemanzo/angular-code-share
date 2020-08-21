@@ -1,15 +1,15 @@
-
-
 <div>
     <app-code-view 
         [mutable]="codeShare.mutable"
         [code]="codeShare.code"
+        (codeChangeEvent)="setCode($event)"
+        (isEditingEvent)="disableOnEdit($event)"
     ></app-code-view>
     <button 
-    id="submit" 
-    name="submit" 
-    [disabled]="submitDisabled" 
-    (click)="handleSubmit()"
+        id="submit" 
+        name="submit" 
+        [disabled]="submitDisabled" 
+        (click)="handleSubmit()"
     >
         {{ submitDisabled ? "Editing Disabled" : "Submit Change" }}
     </button>

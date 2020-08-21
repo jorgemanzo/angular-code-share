@@ -35,6 +35,14 @@ export class CodePresenterComponent implements OnInit {
     }
   }
 
+  disableOnEdit(isEditing: boolean): void {
+    this.submitDisabled = isEditing;
+  }
+
+  setCode(value): void {
+    this.codeShare.code = value;
+  }
+
   initByRouteParams(): void {
     this.shareId = +this.route.snapshot.paramMap.get('id')
     if(this.shareId > 0) {
