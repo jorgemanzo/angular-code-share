@@ -23,12 +23,10 @@ export class CodeFormComponent implements OnInit {
   private disabledInShare: string = "Editing Disabled";
   private submitForUpdate: string = "Submit Change";
 
-  public submitDisabled: boolean = !this.codeShare.mutable;
-  public shareId: Number = null;
+  public submitDisabled: boolean = false;
+  public shareId: number = 0;
   public disabledMessage: string = "";
   public enabledMessage: string = "";
-
-  public allowEdits: boolean = !this.shareId || this.codeShare.mutable;
 
   constructor(
     private sharesService: SharesService,
@@ -42,6 +40,15 @@ export class CodeFormComponent implements OnInit {
 
   setMutable(value: boolean): void {
     this.codeShare.mutable = value;
+  }
+
+  shouldEdit(): boolean {
+    if(!this.shareId) {
+      return true;
+    }
+    else {
+      return this.codeShare.mutable;
+    }
   }
 
   disableOnEdit(isEditing: boolean): void {
@@ -83,12 +90,14 @@ export class CodeFormComponent implements OnInit {
       this.enabledMessage = this.submitForUpdate;
       this.sharesService.getShareById(this.shareId).subscribe(
         res => {
-          this.codeShare.mutable = res[0].mutable == "0" ? false : true;
+          this.codeShare.mutable = res[0].mutable === "0" ? false : true;
+          this.submitDisabled = !this.codeShare.mutable;
           this.codeShare.code = res[0].code;
         }
       )
     }
     else {
+      console.log("Init with no shareID")
       this.disabledMessage = this.disabledWhileEditing;
       this.enabledMessage = this.submitForCreate;
     }

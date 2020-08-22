@@ -1,6 +1,6 @@
 <div>
     <app-code-view 
-        [mutable]="allowEdits"
+        [mutable]="shouldEdit()"
         [code]="codeShare.code"
         (codeChangeEvent)="setCode($event)"
         (isEditingEvent)="disableOnEdit($event)"
