@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharesService } from '../shares.service';
 import { Share } from '../share';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-code-form',
@@ -10,16 +12,36 @@ import { Share } from '../share';
 })
 export class CodeFormComponent implements OnInit {
 
-  mutable: boolean = false;
-  submitDisabled: boolean = false;
-  code: string = 'printf()';
+  public codeShare: Share = {
+    code : "printf()",
+    mutable : false
+  };
+
+  private disabledWhileEditing: string = "Submit (Disabled during edits)";
+  private submitForCreate: string = "Submit";
+
+  private disabledInShare: string = "Editing Disabled";
+  private submitForUpdate: string = "Submit Change";
+
+  public submitDisabled: boolean = !this.codeShare.mutable;
+  public shareId: Number = null;
+  public disabledMessage: string = "";
+  public enabledMessage: string = "";
+
+  public allowEdits: boolean = !this.shareId || this.codeShare.mutable;
+
   constructor(
     private sharesService: SharesService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
+  ngOnInit(): void {
+    this.initByRouteParams();
+  }
+
   setMutable(value: boolean): void {
-    this.mutable = value;
+    this.codeShare.mutable = value;
   }
 
   disableOnEdit(isEditing: boolean): void {
@@ -27,17 +49,24 @@ export class CodeFormComponent implements OnInit {
   }
 
   setCode(value): void {
-    this.code = value;
+    this.codeShare.code = value;
   }
 
   handleSubmit(): void {
-    const value: Share = { 
-      code : this.code,
-      mutable : this.mutable
+    if(this.shareId > 0) {
+      // or update
+      if(this.codeShare.mutable) {
+        this.sharesService.updateShare(this.codeShare, this.shareId).subscribe(
+          res => console.log(res)
+        );
+      }
     }
-    this.sharesService.createShare(value).subscribe(
-      res => this.navigateToPresenter(res)
-    );
+    else {
+      // Create
+      this.sharesService.createShare(this.codeShare).subscribe(
+        res => this.navigateToPresenter(res)
+      );
+    }
   }
 
   navigateToPresenter(res): void {
@@ -47,14 +76,21 @@ export class CodeFormComponent implements OnInit {
     }
   }
 
-  getShares(): void {
-    this.sharesService.getShares().subscribe(
-      res => console.log(res)
-    );
+  initByRouteParams(): void {
+    this.shareId = +this.route.snapshot.paramMap.get('id')
+    if(this.shareId > 0) {
+      this.disabledMessage = this.disabledInShare;
+      this.enabledMessage = this.submitForUpdate;
+      this.sharesService.getShareById(this.shareId).subscribe(
+        res => {
+          this.codeShare.mutable = res[0].mutable == "0" ? false : true;
+          this.codeShare.code = res[0].code;
+        }
+      )
+    }
+    else {
+      this.disabledMessage = this.disabledWhileEditing;
+      this.enabledMessage = this.submitForCreate;
+    }
   }
-
-  ngOnInit(): void {
-    this.getShares();
-  }
-
 }

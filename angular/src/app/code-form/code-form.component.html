@@ -1,17 +1,21 @@
 <div>
     <app-code-view 
+        [mutable]="allowEdits"
+        [code]="codeShare.code"
         (codeChangeEvent)="setCode($event)"
         (isEditingEvent)="disableOnEdit($event)"
     ></app-code-view>
+    <!-- needs nGIf -->
     <app-code-view-options
+        *ngIf="!shareId"
         (mutableCheckboxEvent)="setMutable($event)"
     ></app-code-view-options>
     <button 
-        id="submit" 
-        name="submit" 
+        id="submit"
+        name="submit"
         [disabled]="submitDisabled" 
         (click)="handleSubmit()"
     >
-        {{ submitDisabled ? "Submit (Disabled during edits)" : "Submit" }}
+        {{ submitDisabled ? disabledMessage : enabledMessage }}
     </button>
 </div>
