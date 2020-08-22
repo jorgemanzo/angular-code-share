@@ -20,7 +20,7 @@ export class CodePresenterComponent implements OnInit {
     mutable : false
   };
 
-  public submitDisabled: Boolean = this.codeShare.mutable;
+  public submitDisabled: boolean = !this.codeShare.mutable;
   private shareId: Number = null;
 
   ngOnInit(): void {

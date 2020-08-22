@@ -1,4 +1,6 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Share } from '../share';
+
 @Component({
   selector: 'app-code-view',
   templateUrl: './code-view.component.html',
@@ -9,16 +11,24 @@ export class CodeViewComponent implements OnInit {
   private readonly MAXCHARS: number = 500;
 
   public lineCount: number[] = [1];
-  private _code = 'printf()';
+  public codeShare: Share = {
+    code : "printf();",
+    mutable : true
+  };
 
   @Output() codeChangeEvent = new EventEmitter<string>();
   @Output() isEditingEvent = new EventEmitter<boolean>();
 
-  @Input() mutable: boolean = true;
   @Input()
-  get code(): string { return this._code; }
+  get mutable(): boolean { return this.codeShare.mutable; }
+  set mutable(value: boolean) {
+    this.codeShare.mutable = value;
+  }
+
+  @Input()
+  get code(): string { return this.codeShare.code; }
   set code(value: string) {
-    this._code = value;
+    this.codeShare.code = value;
     this.updateLines();
   }
 
