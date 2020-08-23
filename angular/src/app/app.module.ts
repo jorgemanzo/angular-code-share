@@ -9,7 +9,6 @@ import { AutosizeModule } from 'ngx-autosize';
 import { FormsModule } from '@angular/forms';
 import { CodeFormComponent } from './code-form/code-form.component';
 import { CodeViewOptionsComponent } from './code-view-options/code-view-options.component';
-import { CodePresenterComponent } from './code-presenter/code-presenter.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 @NgModule({
   declarations: [
@@ -17,7 +16,6 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     CodeViewComponent,
     CodeFormComponent,
     CodeViewOptionsComponent,
-    CodePresenterComponent,
     PageNotFoundComponent
   ],
   imports: [
