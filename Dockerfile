@@ -15,6 +15,8 @@ RUN apt-get update -y \
 
 RUN npm install -g @angular/cli
 
+RUN go get -u github.com/go-sql-driver/mysql
+
 COPY ./scripts/container-entrypoint.sh /root/launch.sh
 COPY ./scripts/schema.sql /root/init.sql
 RUN chmod -R 777 /root/*
