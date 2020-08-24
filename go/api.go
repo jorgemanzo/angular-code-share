@@ -1,14 +1,23 @@
 package main
 
 import (
-    "fmt"
     "log"
     "net/http"
+    "encoding/json"
 )
 
+type Share struct {
+    Code string `json:"code"`
+    Mutable bool `json:"mutable"`
+}
+
 func main() {
-    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-        fmt.Fprintf(w, "Hello, you've requested owo: %s\n", r.URL.Path)
+    http.HandleFunc("/create", func(w http.ResponseWriter, r *http.Request) {
+        share := Share {
+            Code: "printf()",
+            Mutable: false,
+        }
+        json.NewEncoder(w).Encode(share)
     })
 
     log.Fatal(http.ListenAndServe(":8081", nil))

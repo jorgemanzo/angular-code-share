@@ -6,7 +6,7 @@ import { Share } from './share';
   providedIn: 'root'
 })
 export class SharesService {
-  private readonly apiURL = 'localhost:8081/ci-api/share';
+  private readonly apiURL = 'localhost:8081';
   private readonly apiCreateEndPoint = "/create";
   private readonly apiUpdateEndPoint = "/update/?id=";
   private readonly apiGetById = "/get_by_id/?id=";
