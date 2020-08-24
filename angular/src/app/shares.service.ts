@@ -14,12 +14,19 @@ export class SharesService {
     private http: HttpClient
   ) { }
 
+  shareToFormData(share: Share): FormData {
+    const form: FormData = new FormData();
+    form.append("code", share.code);
+    form.append("mutable", share.mutable ? "1" : "0");
+    return form;
+  }
+  
   getShares(): Observable<String> {
     return this.http.get<String>(this.apiURL);
   }
 
   createShare(share: Share): Observable<Share> {
-    return this.http.post<Share>(this.apiURL + this.apiCreateEndPoint, share);
+    return this.http.post<Share>(this.apiURL + this.apiCreateEndPoint, this.shareToFormData(share));
   }
 
   updateShare(share: Share, shareId: Number) {
