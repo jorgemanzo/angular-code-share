@@ -9,7 +9,7 @@ export class SharesService {
   private readonly apiURL = 'http://localhost:8081';
   private readonly apiCreateEndPoint = "/create";
   private readonly apiUpdateEndPoint = "/update/?id=";
-  private readonly apiGetById = "/get_by_id/?id=";
+  private readonly apiGetById = "/get_by_id?id=";
   constructor(
     private http: HttpClient
   ) { }

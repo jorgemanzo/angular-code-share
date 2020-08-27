@@ -2,39 +2,40 @@ package main
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
-type share struct {
-	code    string `json:"code"`
-	mutable bool   `json:"mutable"`
+type Share struct {
+	Code    string `json:"code"`
+	Mutable bool   `json:"mutable"`
 }
 
-func allowCORS(w http.ResponseWriter) {
+func setHeaders(w http.ResponseWriter, contentType string) {
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:8080")
+	w.Header().Set("Content-Type", contentType)
 }
 
 func main() {
 
-	/*
-		http.HandleFunc("/get_by_id", func(w http.ResponseWriter, r *http.Request) {
-			sql := "SELECT code, mutable FROM shares WHERE share_id = ?"
-			code := ""
-			mutability := false
-			err := db.QueryRow(sql, r.URL.Query().Get("id")).Scan(&code, &mutability)
-			log.Printf(err.Error())
-			snippet := share{
-				code:    code,
-				mutable: mutability,
-			}
-			allowCORS(w)
-			json.NewEncoder(w).Encode(snippet)
-		})
-	*/
+	http.HandleFunc("/get_by_id", func(w http.ResponseWriter, r *http.Request) {
+		db, _ := sql.Open("mysql", "admin:password@(127.0.0.1:3306)/code_share")
+
+		const sql string = "SELECT code, mutable FROM shares WHERE share_id = ?"
+		snip := Share{"", false}
+		db.QueryRow(sql, r.URL.Query().Get("id")).Scan(&(snip.Code), &(snip.Mutable))
+
+		db.Close()
+
+		log.Printf("{%s, %v}\n", snip.Code, snip.Mutable)
+		setHeaders(w, "application/json")
+		json.NewEncoder(w).Encode(snip)
+	})
 
 	http.HandleFunc("/create", func(w http.ResponseWriter, r *http.Request) {
 		db, err := sql.Open("mysql", "admin:password@(127.0.0.1:3306)/code_share")
@@ -54,7 +55,7 @@ func main() {
 
 		db.Close()
 
-		allowCORS(w)
+		setHeaders(w, "text/plain")
 		fmt.Fprintf(w, "%d", shareID)
 	})
 
