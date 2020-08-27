@@ -16,7 +16,13 @@
 ### Startup
 1. Run `./scripts/start.sh`.
 2. Once inside the container, `cd /var/www/html/go` and then
-`go build -o build/ api.go`. Lastly, start the HTTP server `./build/api`
+`go build -o build/api`. Lastly, start the HTTP server `./build/api`
 3. Access the web app via `localhost:8080`.
 
 The image will be built called `go` and will be started and named as `go`.
+
+---
+
+Why the switch?
+
+Measured API performance improvement, reducing latency from 16 to 30ms to 4 to 6 ms with Go.

@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 )
 
@@ -55,8 +54,6 @@ func UpdateByID(w http.ResponseWriter, r *http.Request) {
 	if r.PostFormValue("mutable") == "true" {
 		mutability = true
 	}
-
-	log.Printf("%s, %v, %s\n", r.PostFormValue("code"), mutability, r.URL.Query().Get("id"))
 
 	db, _ := sql.Open("mysql", mySQLInfo)
 	db.QueryRow(stmt, r.PostFormValue("code"), mutability, r.URL.Query().Get("id"))
