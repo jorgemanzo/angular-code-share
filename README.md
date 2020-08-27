@@ -3,21 +3,20 @@
   <a href="https://angular.io/">
     <img src="https://angular.io/assets/images/logos/angular/angular.svg" alt="angular" height="150" width="221">
   </a>
-  <a href="https://codeigniter.com/">
-    <img src="https://codeigniter.com/assets/images/ci-logo-big.png" alt="codeigniter" height="140" width="95">
+  <a href="https://golang.org/">
+    <img src="https://golang.org/lib/godoc/images/go-logo-blue.svg" alt="golang" height="140" width="95">
   </a>
 </div>
 
 - Angular frontend
-- Codeigniter api backend
-- NGINX webserver
-- PHP FPM to serve the Codeigniter
+- Go for a backend API
 - MariaDB as... a db
 - All live in a docker container.
 
 ### Startup
-1. Run `ng build` from within `angular/`. This will generate a build in the `dist/` folder.
-2. Back in the project root directory, run `./scripts/start.sh` to start the database and the NGINX + Codeigniter containers.
-3. Access the web app via `https://localhost/` and Codeigniter via `https://localhost/ci-api/` (Codeigniter can take a while to startup).
+1. Run `./scripts/start.sh`.
+2. Once inside the container, `cd /var/www/html/go` and then
+`go build -o build/ api.go`. Lastly, start the HTTP server `./build/api`
+3. Access the web app via `localhost:8080`.
 
-The image will be built called `php` and will be started and named as `php`.
+The image will be built called `go` and will be started and named as `go`.
