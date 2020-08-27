@@ -6,24 +6,31 @@ import { Share } from './share';
   providedIn: 'root'
 })
 export class SharesService {
-  private readonly apiURL = '/ci-api/share';
+  private readonly apiURL = 'http://localhost:8081';
   private readonly apiCreateEndPoint = "/create";
-  private readonly apiUpdateEndPoint = "/update/?id=";
-  private readonly apiGetById = "/get_by_id/?id=";
+  private readonly apiUpdateEndPoint = "/update_by_id?id=";
+  private readonly apiGetById = "/get_by_id?id=";
   constructor(
     private http: HttpClient
   ) { }
 
+  shareToFormData(share: Share): FormData {
+    const form: FormData = new FormData();
+    form.append("code", share.code);
+    form.append("mutable", share.mutable ? "true" : "false");
+    return form;
+  }
+  
   getShares(): Observable<String> {
     return this.http.get<String>(this.apiURL);
   }
 
   createShare(share: Share): Observable<Share> {
-    return this.http.post<Share>(this.apiURL + this.apiCreateEndPoint, share);
+    return this.http.post<Share>(this.apiURL + this.apiCreateEndPoint, this.shareToFormData(share));
   }
 
   updateShare(share: Share, shareId: Number) {
-    return this.http.patch(this.apiURL + this.apiUpdateEndPoint + shareId, share);
+    return this.http.post<Share>(this.apiURL + this.apiUpdateEndPoint + shareId, this.shareToFormData(share));
   }
 
   getShareById(id: Number): Observable<Share> {

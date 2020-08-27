@@ -1,15 +1,14 @@
 #!/bin/bash
-docker stop php
+docker stop go
 
-docker build -t php -f Dockerfile .
+docker build -t go -f Dockerfile .
 
-docker run --rm -p 8080:80 \
-        -p 443:443 \
+docker run --rm -p 8080:8080 \
+        -p 8081:8081 \
         -p 3306:3306 \
-        --name php \
-        -v $(pwd)/config/nginx-sites/:/etc/nginx/sites-available/ \
+        --name go \
         -v $(pwd)/angular/:/var/www/html/angular/ \
-        -v $(pwd)/vendor/codeigniter/framework:/var/www/html/ci-api \
-        -d php
+        -v $(pwd)/go/:/var/www/html/go/ \
+        -d go
 
-docker exec -it php bash
+docker exec -it go bash

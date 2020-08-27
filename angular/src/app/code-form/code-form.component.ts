@@ -90,9 +90,9 @@ export class CodeFormComponent implements OnInit {
       this.enabledMessage = this.submitForUpdate;
       this.sharesService.getShareById(this.shareId).subscribe(
         res => {
-          this.codeShare.mutable = res[0].mutable === "0" ? false : true;
+          this.codeShare.mutable = res.mutable;
           this.submitDisabled = !this.codeShare.mutable;
-          this.codeShare.code = res[0].code;
+          this.codeShare.code = res.code;
         }
       )
     }
