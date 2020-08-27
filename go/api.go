@@ -3,8 +3,6 @@ package main
 import (
 	"angular-code-share/api/handlers"
 	"net/http"
-
-	_ "github.com/go-sql-driver/mysql"
 )
 
 func main() {
