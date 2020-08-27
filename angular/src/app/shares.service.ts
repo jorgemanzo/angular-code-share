@@ -8,7 +8,7 @@ import { Share } from './share';
 export class SharesService {
   private readonly apiURL = 'http://localhost:8081';
   private readonly apiCreateEndPoint = "/create";
-  private readonly apiUpdateEndPoint = "/update/?id=";
+  private readonly apiUpdateEndPoint = "/update_by_id?id=";
   private readonly apiGetById = "/get_by_id?id=";
   constructor(
     private http: HttpClient
@@ -30,7 +30,7 @@ export class SharesService {
   }
 
   updateShare(share: Share, shareId: Number) {
-    return this.http.patch(this.apiURL + this.apiUpdateEndPoint + shareId, share);
+    return this.http.post<Share>(this.apiURL + this.apiUpdateEndPoint + shareId, this.shareToFormData(share));
   }
 
   getShareById(id: Number): Observable<Share> {
