@@ -17,7 +17,7 @@ export class SharesService {
   shareToFormData(share: Share): FormData {
     const form: FormData = new FormData();
     form.append("code", share.code);
-    form.append("mutable", share.mutable ? "1" : "0");
+    form.append("mutable", share.mutable ? "true" : "false");
     return form;
   }
   

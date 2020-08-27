@@ -26,7 +26,7 @@ func setHeaders(w http.ResponseWriter, contentType string) {
 func create(w http.ResponseWriter, r *http.Request) {
 	const stmt = "INSERT shares (code, mutable) VALUES ( ?, ?)"
 	mutability := false
-	if r.PostFormValue("mutable") == "1" {
+	if r.PostFormValue("mutable") == "true" {
 		mutability = true
 	}
 
@@ -54,7 +54,7 @@ func getByID(w http.ResponseWriter, r *http.Request) {
 func updateByID(w http.ResponseWriter, r *http.Request) {
 	const stmt = "UPDATE shares SET code = ?, mutable = ? WHERE share_id = ?"
 	mutability := false
-	if r.PostFormValue("mutable") == "1" {
+	if r.PostFormValue("mutable") == "true" {
 		mutability = true
 	}
 
