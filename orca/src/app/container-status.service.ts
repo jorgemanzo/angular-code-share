@@ -7,12 +7,12 @@ import { ContainerStatus } from './container-status'
 })
 export class ContainerStatusService {
   private readonly apiURL = 'http://localhost:8081';
-  private readonly apiDockerPS = '/docker_ps';
+  private readonly apiGetStatusForAll = '/get_status_for_all';
   constructor(
     private http: HttpClient
   ) { }
 
   getStatusForAll(): Observable<ContainerStatus> {
-    return this.http.get<ContainerStatus>(this.apiURL + this.apiDockerPS);
+    return this.http.get<ContainerStatus>(this.apiURL + this.apiGetStatusForAll);
   }
 }

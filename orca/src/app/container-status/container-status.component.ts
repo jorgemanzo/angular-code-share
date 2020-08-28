@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ContainerStatusService } from '../container-status.service'
+import { ContainerStatus } from '../container-status'
 @Component({
   selector: 'app-container-status',
   templateUrl: './container-status.component.html',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContainerStatusComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private containerStatusService: ContainerStatusService
+  ) { }
 
   ngOnInit(): void {
+    this.containerStatusService.getStatusForAll().subscribe(
+      res => {
+        console.log(res)
+      }
+    )
   }
 
 }

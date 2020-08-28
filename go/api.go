@@ -12,7 +12,7 @@ func main() {
 
 	http.HandleFunc("/update_by_id", handlers.UpdateByID)
 
-	http.HandleFunc("/docker_ps", handlers.RunDockerPS)
+	http.HandleFunc("/get_status_for_all", handlers.GetStatusForAll)
 
 	http.ListenAndServe(":8081", nil)
 
