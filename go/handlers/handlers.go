@@ -1,13 +1,11 @@
 package handlers
 
 import (
-	"database/sql"
+	"angular-code-share/api/database"
 	"encoding/json"
 	"fmt"
 	"net/http"
 )
-
-const mySQLInfo = "admin:password@(127.0.0.1:3306)/code_share"
 
 type share struct {
 	Code    string `json:"code"`
@@ -20,44 +18,34 @@ func setHeaders(w http.ResponseWriter, contentType string) {
 	w.Header().Set("Content-Type", contentType)
 }
 
+// Create handles the endpoint to insert a new Share
+// into the database
 func Create(w http.ResponseWriter, r *http.Request) {
-	const stmt = "INSERT shares (code, mutable) VALUES ( ?, ?)"
 	mutability := false
 	if r.PostFormValue("mutable") == "true" {
 		mutability = true
 	}
-
-	db, _ := sql.Open("mysql", mySQLInfo)
-	result, _ := db.Exec(stmt, r.PostFormValue("code"), mutability)
-	db.Close()
-
-	shareID, _ := result.LastInsertId()
+	shareID, _ := database.InsertShare(r.PostFormValue("code"), mutability)
 	setHeaders(w, "text/plain")
 	fmt.Fprintf(w, "%d", shareID)
 }
 
+// GetByID handles the endpoint to search the database for
+// a share provided a share's id.
 func GetByID(w http.ResponseWriter, r *http.Request) {
-	const stmt = "SELECT code, mutable FROM shares WHERE share_id = ?"
 	snip := share{"", false}
-
-	db, _ := sql.Open("mysql", mySQLInfo)
-	db.QueryRow(stmt, r.URL.Query().Get("id")).Scan(&(snip.Code), &(snip.Mutable))
-	db.Close()
-
+	database.GetShareByID(r.URL.Query().Get("id")).Scan(&(snip.Code), &(snip.Mutable))
 	setHeaders(w, "application/json")
 	json.NewEncoder(w).Encode(snip)
 }
 
+// UpdateByID handles the endpoint to perform a database update
+// on an existing share using its id.
 func UpdateByID(w http.ResponseWriter, r *http.Request) {
-	const stmt = "UPDATE shares SET code = ?, mutable = ? WHERE share_id = ?"
 	mutability := false
 	if r.PostFormValue("mutable") == "true" {
 		mutability = true
 	}
-
-	db, _ := sql.Open("mysql", mySQLInfo)
-	db.QueryRow(stmt, r.PostFormValue("code"), mutability, r.URL.Query().Get("id"))
-	db.Close()
-
+	database.UpdateShareByID(r.PostFormValue("code"), r.URL.Query().Get("id"), mutability)
 	setHeaders(w, "text/plain")
 }
