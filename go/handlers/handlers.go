@@ -2,14 +2,24 @@ package handlers
 
 import (
 	"angular-code-share/api/database"
+	"angular-code-share/api/docker"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
+	"strings"
 )
 
 type share struct {
 	Code    string `json:"code"`
 	Mutable bool   `json:"mutable"`
+}
+
+type containerStatus struct {
+	ID     string `json:"ID"`
+	Names  string `json:"Names"`
+	Status string `json:"Status"`
+	Ports  string `json:"Ports"`
 }
 
 func setHeaders(w http.ResponseWriter, contentType string) {
@@ -48,4 +58,25 @@ func UpdateByID(w http.ResponseWriter, r *http.Request) {
 	}
 	database.UpdateShareByID(r.PostFormValue("code"), r.URL.Query().Get("id"), mutability)
 	setHeaders(w, "text/plain")
+}
+
+func RunDockerPS(w http.ResponseWriter, r *http.Request) {
+	result := docker.Status()
+	statusLines := strings.Split(result, "\n")
+	containers := make([]containerStatus, 0)
+	for j := 0; j < len(statusLines)-1; j++ {
+		log.Print(statusLines[j])
+		fields := strings.Split(statusLines[j], ",")
+		log.Print(len(fields))
+		if len(fields) >= 4 {
+			containers = append(containers, containerStatus{
+				ID:     fields[0],
+				Names:  fields[1],
+				Status: fields[2],
+				Ports:  fields[3],
+			})
+		}
+	}
+	setHeaders(w, "application/json")
+	json.NewEncoder(w).Encode(containers)
 }
