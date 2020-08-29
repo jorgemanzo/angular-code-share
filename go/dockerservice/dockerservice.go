@@ -2,6 +2,7 @@ package dockerservice
 
 import (
 	"angular-code-share/api/docker"
+	"fmt"
 	"strings"
 )
 
@@ -10,6 +11,11 @@ type containerStatus struct {
 	Names  string `json:"Names"`
 	Status string `json:"Status"`
 	Ports  string `json:"Ports"`
+}
+
+type executionMessage struct {
+	Message string `json:"Message"`
+	OK      bool   `json:"OK"`
 }
 
 func RunDockerPS() []containerStatus {
@@ -28,4 +34,21 @@ func RunDockerPS() []containerStatus {
 		}
 	}
 	return containers
+}
+
+func StopByID(ID string) executionMessage {
+	err := docker.StopByID(ID)
+	var reply executionMessage
+	if err != nil {
+		reply = executionMessage{
+			Message: fmt.Sprint(err),
+			OK:      false,
+		}
+	} else {
+		reply = executionMessage{
+			Message: "",
+			OK:      true,
+		}
+	}
+	return reply
 }

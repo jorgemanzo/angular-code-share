@@ -1,6 +1,16 @@
 <div class="styling">
-    <mat-card>
-        <mat-card-title>Go</mat-card-title>
-        <mat-card-content>Uptime 5 minutes</mat-card-content>
+    <h2>Your Running Containers</h2>
+    <button (click)="getContainers()" mat-raised-button>Refresh</button>
+    <mat-card  class="styling" *ngFor="let status of statusCards">
+        <mat-card-title>{{status.Names}}</mat-card-title>
+        <br/>
+        <mat-card-content>
+            Container ID: <code>{{status.ID}}</code>
+            <br/>
+            Ports: {{status.Ports}}
+            <br/>
+            Status: {{status.Status}}
+        </mat-card-content>
+        <button mat-button color="warn" (click)="handleStop(status.ID)">Stop</button>
     </mat-card>
 </div>

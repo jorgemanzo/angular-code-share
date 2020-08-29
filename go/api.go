@@ -14,6 +14,8 @@ func main() {
 
 	http.HandleFunc("/get_status_for_all", handlers.GetStatusForAll)
 
+	http.HandleFunc("/stop_container_by_id", handlers.StopContainerByID)
+
 	http.ListenAndServe(":8081", nil)
 
 }

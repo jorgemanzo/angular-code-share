@@ -56,3 +56,9 @@ func GetStatusForAll(w http.ResponseWriter, r *http.Request) {
 	setHeaders(w, "application/json")
 	json.NewEncoder(w).Encode(containers)
 }
+
+func StopContainerByID(w http.ResponseWriter, r *http.Request) {
+	resultMessage := dockerservice.StopByID(r.URL.Query().Get("ID"))
+	setHeaders(w, "application/json")
+	json.NewEncoder(w).Encode(resultMessage)
+}

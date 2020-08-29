@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ContainerStatusComponent } from './container-status/container-status.component';
 
+/* UI */
+import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -15,7 +18,9 @@ import { ContainerStatusComponent } from './container-status/container-status.co
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatCardModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

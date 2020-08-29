@@ -3,10 +3,10 @@ docker stop go
 
 docker build -t go -f Dockerfile .
 
-docker run --rm -p 8080:8080 \
+docker run --rm -p 4200:4200 \
         -p 3306:3306 \
         --name go \
-        -v $(pwd)/angular/:/var/www/html/angular/ \
+        -v $(pwd)/orca/:/var/www/html/orca/ \
         -d go
 
-docker exec -it go bash
+# docker exec -it go bash

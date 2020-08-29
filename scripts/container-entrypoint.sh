@@ -5,5 +5,5 @@ mysql < /root/init.sql
 # cd /var/www/html/go/
 # go build -o build/ api.go
 # ./build/api &
-cd /var/www/html/angular/
-ng serve --host 0.0.0.0 --port 8080
+cd /var/www/html/orca/
+ng serve --host 0.0.0.0 --port 4200
