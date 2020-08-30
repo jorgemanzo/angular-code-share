@@ -25,20 +25,31 @@ func StopByID(ID string) error {
 }
 
 func DockerRun(commandWithParameters []string, stdinStr string) (string, error) {
-	cmd := exec.Command("docker", commandWithParameters...)
-	stdin, err := cmd.StdinPipe()
-	if err != nil {
-		return "", err
+	if len(stdinStr) > 0 {
+		log.Print("Using STDIN")
+		commandWithParameters = append(commandWithParameters, "-")
 	}
+	log.Print(commandWithParameters)
 
-	go func() {
-		defer stdin.Close()
-		io.WriteString(stdin, stdinStr)
-	}()
+	cmd := exec.Command("docker", commandWithParameters...)
+
+	if len(stdinStr) > 0 {
+
+		stdin, err := cmd.StdinPipe()
+		if err != nil {
+			return "", err
+		}
+
+		go func() {
+			defer stdin.Close()
+			io.WriteString(stdin, stdinStr)
+		}()
+
+	}
 
 	out, err := cmd.CombinedOutput()
 	if err != nil {
-		return "", err
+		return fmt.Sprintf("%s\n", out), err
 	}
 
 	return fmt.Sprintf("%s\n", out), nil

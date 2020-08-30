@@ -33,8 +33,8 @@ func RunDockerPS() []containerStatus {
 	result := docker.Status()
 	statusLines := strings.Split(result, "\n")
 	containers := make([]containerStatus, 0)
-	for j := 0; j < len(statusLines)-1; j++ {
-		fields := strings.Split(statusLines[j], ",")
+	for _, statusLine := range statusLines {
+		fields := strings.Split(statusLine, ",")
 		if len(fields) >= 4 {
 			containers = append(containers, containerStatus{
 				ID:     fields[0],
@@ -67,16 +67,15 @@ func StopByID(ID string) executionMessage {
 func StartBuild(order BuildOrder) executionMessage {
 	var strs []string
 	strs = append(strs, "build")
-	for i := 0; i < len(order.CommandOptions); i++ {
-		strs = append(strs, order.CommandOptions[i].Parameter)
-		strs = append(strs, order.CommandOptions[i].Value)
+	for _, commandOption := range order.CommandOptions {
+		strs = append(strs, commandOption.Parameter)
+		strs = append(strs, commandOption.Value)
 	}
-	strs = append(strs, "-")
 	output, err := docker.DockerRun(strs, order.DockerFile)
 	var reply executionMessage
 	if err != nil {
 		reply = executionMessage{
-			Message: fmt.Sprint(err),
+			Message: strings.Join([]string{fmt.Sprint(output), fmt.Sprint(err)}, "\n"),
 			OK:      false,
 		}
 	} else {
