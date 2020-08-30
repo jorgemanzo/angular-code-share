@@ -2,6 +2,7 @@ package main
 
 import (
 	"angular-code-share/api/handlers"
+	"log"
 	"net/http"
 )
 
@@ -16,6 +17,11 @@ func main() {
 
 	http.HandleFunc("/stop_container_by_id", handlers.StopContainerByID)
 
-	http.ListenAndServe(":8081", nil)
+	http.HandleFunc("/submit_build_order", handlers.SubmitBuildOrder)
+
+	err := http.ListenAndServe(":8081", nil)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 }

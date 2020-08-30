@@ -62,3 +62,11 @@ func StopContainerByID(w http.ResponseWriter, r *http.Request) {
 	setHeaders(w, "application/json")
 	json.NewEncoder(w).Encode(resultMessage)
 }
+
+func SubmitBuildOrder(w http.ResponseWriter, r *http.Request) {
+	var order dockerservice.BuildOrder
+	json.NewDecoder(r.Body).Decode(&order)
+	resultMessage := dockerservice.StartBuild(order)
+	setHeaders(w, "application/json")
+	json.NewEncoder(w).Encode(resultMessage)
+}

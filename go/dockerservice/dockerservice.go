@@ -18,6 +18,17 @@ type executionMessage struct {
 	OK      bool   `json:"OK"`
 }
 
+type commandOption struct {
+	ID        int    `json:"ID"`
+	Parameter string `json:"parameter"`
+	Value     string `json:"value"`
+}
+
+type BuildOrder struct {
+	DockerFile     string          `json:"dockerFile"`
+	CommandOptions []commandOption `json:"commandOptions"`
+}
+
 func RunDockerPS() []containerStatus {
 	result := docker.Status()
 	statusLines := strings.Split(result, "\n")
@@ -47,6 +58,30 @@ func StopByID(ID string) executionMessage {
 	} else {
 		reply = executionMessage{
 			Message: "",
+			OK:      true,
+		}
+	}
+	return reply
+}
+
+func StartBuild(order BuildOrder) executionMessage {
+	var strs []string
+	strs = append(strs, "build")
+	for i := 0; i < len(order.CommandOptions); i++ {
+		strs = append(strs, order.CommandOptions[i].Parameter)
+		strs = append(strs, order.CommandOptions[i].Value)
+	}
+	strs = append(strs, "-")
+	output, err := docker.DockerRun(strs, order.DockerFile)
+	var reply executionMessage
+	if err != nil {
+		reply = executionMessage{
+			Message: fmt.Sprint(err),
+			OK:      false,
+		}
+	} else {
+		reply = executionMessage{
+			Message: output,
 			OK:      true,
 		}
 	}

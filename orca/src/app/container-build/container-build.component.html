@@ -1,0 +1,16 @@
+<div class="styling">
+    <h2>Build from a Dockerfile</h2>
+    <textarea [(ngModel)]="dockerFile"></textarea>
+    <div>
+        <h3>Build options</h3>
+        <div *ngFor="let commandOption of options">
+            <textarea [(ngModel)]="commandOption.parameter"></textarea>
+            <textarea [(ngModel)]="commandOption.value"></textarea>
+            <button (click)="removeCommandOption(commandOption.ID)">X</button>
+        </div>
+        <button (click)="addCommandOption()">+</button>
+    </div>
+    <button (click)="buildContainer()">Build</button>
+    <h3>Build Output</h3>
+    <textarea [(ngModel)]="buildOutput"></textarea>
+</div>

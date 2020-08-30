@@ -2,6 +2,7 @@ package docker
 
 import (
 	"fmt"
+	"io"
 	"log"
 	"os/exec"
 )
@@ -21,4 +22,24 @@ func Status() string {
 func StopByID(ID string) error {
 	_, err := exec.Command("docker", "stop", ID).Output()
 	return err
+}
+
+func DockerRun(commandWithParameters []string, stdinStr string) (string, error) {
+	cmd := exec.Command("docker", commandWithParameters...)
+	stdin, err := cmd.StdinPipe()
+	if err != nil {
+		return "", err
+	}
+
+	go func() {
+		defer stdin.Close()
+		io.WriteString(stdin, stdinStr)
+	}()
+
+	out, err := cmd.CombinedOutput()
+	if err != nil {
+		return "", err
+	}
+
+	return fmt.Sprintf("%s\n", out), nil
 }
