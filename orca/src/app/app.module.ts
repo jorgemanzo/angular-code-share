@@ -10,12 +10,14 @@ import { FormsModule } from '@angular/forms';
 /* UI */
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
-import { ContainerBuildComponent } from './container-build/container-build.component'; 
+import { ContainerBuildComponent } from './container-build/container-build.component';
+import { CommandOptionComponent } from './command-option/command-option.component'; 
 @NgModule({
   declarations: [
     AppComponent,
     ContainerStatusComponent,
-    ContainerBuildComponent
+    ContainerBuildComponent,
+    CommandOptionComponent
   ],
   imports: [
     BrowserModule,

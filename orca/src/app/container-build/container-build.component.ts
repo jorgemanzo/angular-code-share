@@ -19,18 +19,8 @@ export class ContainerBuildComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  addCommandOption(): void {
-    this.options.push({
-      ID: -1,
-      parameter: "",
-      value: ""
-    })
-    this.options.map((option,index) => option.ID = index)
-  }
-
-  removeCommandOption(IDToRemove: number): void {
-    this.options = this.options.filter(option => option.ID != IDToRemove)
-    this.options.map((option,index) => option.ID = index)
+  updateCommandOptions(newCommandOptions: CommandOption[]): void {
+    this.options = newCommandOptions;
   }
 
   buildContainer(): void {

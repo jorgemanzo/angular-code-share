@@ -1,0 +1,12 @@
+<p>command-option works!</p>
+<div>
+    <div 
+        *ngFor="let commandOption of options"
+        
+    >
+        <textarea (blur)="onBlur()" [(ngModel)]="commandOption.parameter"></textarea>
+        <textarea (blur)="onBlur()" [(ngModel)]="commandOption.value"></textarea>
+        <button (click)="removeCommandOption(commandOption.ID)">X</button>
+    </div>
+    <button (click)="addCommandOption()">+</button>
+</div>
